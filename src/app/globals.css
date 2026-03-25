@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+/* TODO: Replace with Editorial New (Pangram Pangram) license — commercial web font */
+/* TODO: Replace with Neue Haas Grotesk (Monotype/Adobe Fonts) license — commercial web font */
+
+@theme inline {
+  /* Colors */
+  --color-bg: #F8F8F8;
+  --color-bg-warm: #EDE7D6;
+  --color-bg-dark: #1C1C1C;
+  --color-ink: #1C1C1C;
+  --color-ink-secondary: #5E5E5E;
+  --color-ink-muted: #A4A4A4;
+  --color-accent: #A18461;
+  --color-border: #D8CBB8;
+  --color-bg-dark-text: #F8F8F8;
+
+  /* Fonts */
+  --font-heading: var(--font-playfair);
+  --font-body: var(--font-inter);
+}
+
+:root {
+  /* Easing */
+  --ease-ui: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-clip: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Durations */
+  --duration-fast: 200ms;
+  --duration-ui: 300ms;
+  --duration-reveal: 800ms;
+  --duration-clip: 1200ms;
+  --duration-hero: 2000ms;
+  --stagger: 120ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Disable dark mode — site has its own inversions */
+  }
+}
+
+* {
+  border-radius: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
