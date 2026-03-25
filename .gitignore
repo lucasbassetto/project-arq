@@ -62,5 +62,11 @@ video-teste.mp4
 # Visual research references (local only)
 references/
 
+# Internal docs (local only — not for the repository)
+CLAUDE.md
+copy.md
+design-specs.md
+visual-references.md
+
 # Claude Code
 .claude/
