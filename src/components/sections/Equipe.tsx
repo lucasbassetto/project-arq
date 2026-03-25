@@ -78,6 +78,7 @@ export default function Equipe() {
     <section
       ref={sectionRef}
       style={{ minHeight: `calc(100vh + ${EXTRA_SCROLL}px)` }}
+      id="equipe"
       className="relative bg-[var(--color-bg-dark)]"
       aria-label="Equipe"
     >

@@ -8,8 +8,8 @@ const NAV_LINKS = [
 ] as const;
 
 const SOCIAL_LINKS = [
-  { label: 'Instagram', href: '#' },
-  { label: 'LinkedIn', href: '#' },
+  { label: 'Instagram', href: 'https://www.instagram.com/lar.arq/' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/lar-arquitetura/' },
   { label: 'WhatsApp', href: '#' },
 ] as const;
 
@@ -47,7 +47,7 @@ export default function Footer() {
               Arquitetura que responde<br />ao lugar e a quem habita.
             </p>
             <p className="mt-5 text-[14px] font-[300] leading-[1.7] text-[rgba(248,248,248,0.5)]">
-              Porto Alegre, RS — Brasil
+              Maringá - PR — Brasil
             </p>
           </div>
 
@@ -79,16 +79,16 @@ export default function Footer() {
               </p>
               <div className="flex flex-col gap-3">
                 <a
-                  href="mailto:contato@lararquitetura.com.br"
+                  href="mailto:contato@lar.arq.br"
                   className="text-[15px] font-[300] text-[rgba(248,248,248,0.7)] transition-colors duration-[250ms] hover:text-[var(--color-bg-dark-text)]"
                 >
-                  contato@lararquitetura.com.br
+                  contato@lar.arq.br
                 </a>
                 <a
-                  href="tel:+555100000000"
+                  href="tel:+554432245412"
                   className="text-[15px] font-[300] text-[rgba(248,248,248,0.7)] transition-colors duration-[250ms] hover:text-[var(--color-bg-dark-text)]"
                 >
-                  +55 (51) 0000-0000
+                  +55 (44) 3224-5412
                 </a>
 
                 {/* Social */}

@@ -169,17 +169,21 @@ export default function Projetos() {
                 className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-10 lg:gap-x-8 lg:gap-y-14"
               >
                 {filteredProjects.map((project, index) => (
-                  <ProjectCard
-                    key={project.slug}
-                    project={project}
-                    index={index}
-                  />
+                  <div key={project.slug} className={index >= 5 ? 'hidden lg:block' : ''}>
+                    <ProjectCard
+                      project={project}
+                      index={index}
+                    />
+                  </div>
                 ))}
               </motion.div>
             </AnimatePresence>
 
             <AnimatedText className="mt-14 lg:mt-16 flex justify-end">
-              <Button variant="primary" href="/projetos">
+              <Button
+                variant="primary"
+                href={activeFilter === 'Todos' ? '/projetos' : `/projetos?categoria=${encodeURIComponent(activeFilter)}`}
+              >
                 Ver todos os projetos
               </Button>
             </AnimatedText>

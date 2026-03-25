@@ -1,9 +1,9 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import Navigation from '@/components/layout/Navigation';
 import Footer from '@/components/layout/Footer';
 import SectionLabel from '@/components/ui/SectionLabel';
-import ProjectGridCard from '@/components/ui/ProjectGridCard';
-import { PROJECTS } from '@/data/projects';
+import ProjetosGrid from '@/components/sections/ProjetosGrid';
 
 export const metadata: Metadata = {
   title: 'Projetos — LAR Arquitetura',
@@ -34,18 +34,9 @@ export default function ProjetosPage() {
 
         <section className="bg-[var(--color-bg-warm)] py-[80px] lg:py-[120px]">
           <div className="max-w-[1280px] mx-auto px-6 md:px-12 xl:px-20">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-              {PROJECTS.map((project, index) => (
-                <ProjectGridCard
-                  key={project.slug}
-                  slug={project.slug}
-                  name={project.name}
-                  typology={project.typology}
-                  heroImage={project.images[0]}
-                  index={index}
-                />
-              ))}
-            </div>
+            <Suspense>
+              <ProjetosGrid />
+            </Suspense>
           </div>
         </section>
       </main>
