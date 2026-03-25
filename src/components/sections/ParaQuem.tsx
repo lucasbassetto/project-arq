@@ -82,7 +82,7 @@ export default function ParaQuem() {
         <AnimatedText>
           <SectionLabel>Para quem</SectionLabel>
           <h2
-            className="text-[40px] lg:text-[64px] font-[300] leading-[1.15] tracking-[-0.01em] text-[var(--color-ink)] max-w-[900px]"
+            className="text-[40px] lg:text-[64px] font-[300] leading-[1.15] tracking-[-0.01em] text-[var(--color-ink)] max-w-[900px] text-wrap-balance"
             style={{ fontFamily: 'var(--font-heading), Georgia, serif' }}
           >
             Para quem busca mais do que um projeto

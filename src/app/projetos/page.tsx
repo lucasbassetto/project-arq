@@ -20,7 +20,7 @@ export default function ProjetosPage() {
           <div className="max-w-[1280px] mx-auto px-6 md:px-12 xl:px-20">
             <SectionLabel>Portfólio</SectionLabel>
             <h1
-              className="mt-4 text-[40px] lg:text-[64px] leading-[1.15] font-[300] max-w-[800px]"
+              className="mt-4 text-[40px] lg:text-[64px] leading-[1.15] font-[300] max-w-[800px] text-wrap-balance"
               style={{ fontFamily: 'var(--font-heading), Georgia, serif' }}
             >
               Todos os projetos

@@ -1,7 +1,17 @@
+export type ProjectCategory = 'Casas' | 'Comércios' | 'Interiores' | 'Edifícios';
+
+export const PROJECT_CATEGORIES: readonly ProjectCategory[] = [
+  'Casas',
+  'Comércios',
+  'Interiores',
+  'Edifícios',
+] as const;
+
 export interface ProjectData {
   readonly slug: string;
   readonly name: string;
   readonly typology: string;
+  readonly category: ProjectCategory;
   readonly location: string;
   readonly year: string;
   readonly status: string;
@@ -18,6 +28,7 @@ export const PROJECTS: readonly ProjectData[] = [
     slug: '54-park-skuare',
     name: '54 Park Skuare',
     typology: 'Residencial Multifamiliar',
+    category: 'Edifícios',
     location: 'Porto Alegre, RS',
     year: '2024',
     status: 'Em obra',
@@ -36,6 +47,7 @@ export const PROJECTS: readonly ProjectData[] = [
     slug: 'apartamento-mn',
     name: 'Apartamento MN',
     typology: 'Residencial',
+    category: 'Interiores',
     location: 'Porto Alegre, RS',
     year: '2022',
     status: 'Construído',
@@ -65,6 +77,7 @@ export const PROJECTS: readonly ProjectData[] = [
     slug: 'box-one-fitness',
     name: 'Box One Fitness',
     typology: 'Comercial',
+    category: 'Comércios',
     location: 'Porto Alegre, RS',
     year: '2020',
     status: 'Construído',
@@ -87,6 +100,7 @@ export const PROJECTS: readonly ProjectData[] = [
     slug: 'carnivoros',
     name: 'Carnívoros',
     typology: 'Comercial',
+    category: 'Comércios',
     location: 'Porto Alegre, RS',
     year: '2020',
     status: 'Construído',
@@ -112,6 +126,7 @@ export const PROJECTS: readonly ProjectData[] = [
     slug: 'casa-lf',
     name: 'Casa LF',
     typology: 'Residencial',
+    category: 'Casas',
     location: 'Gravataí, RS',
     year: '2018',
     status: 'Construído',
@@ -137,6 +152,7 @@ export const PROJECTS: readonly ProjectData[] = [
     slug: 'casa-pn',
     name: 'Casa PN',
     typology: 'Residencial',
+    category: 'Casas',
     location: 'Canoas, RS',
     year: '2018',
     status: 'Construído',
@@ -162,6 +178,7 @@ export const PROJECTS: readonly ProjectData[] = [
     slug: 'casablanca-hall',
     name: 'Casablanca Hall',
     typology: 'Comercial',
+    category: 'Comércios',
     location: 'Porto Alegre, RS',
     year: '2017',
     status: 'Construído',
@@ -182,6 +199,7 @@ export const PROJECTS: readonly ProjectData[] = [
     slug: 'colli-bike',
     name: 'Colli Bike',
     typology: 'Comercial',
+    category: 'Comércios',
     location: 'Porto Alegre, RS',
     year: '2020',
     status: 'Construído',
@@ -207,6 +225,7 @@ export const PROJECTS: readonly ProjectData[] = [
     slug: 'condominio-villagio-bourbon',
     name: 'Condomínio Villagio Bourbon',
     typology: 'Residencial Multifamiliar',
+    category: 'Edifícios',
     location: 'Porto Alegre, RS',
     year: '2021',
     status: 'Construído',
@@ -233,6 +252,7 @@ export const PROJECTS: readonly ProjectData[] = [
     slug: 'country-club-complexo-piscinas',
     name: 'Country Club — Complexo de Piscinas',
     typology: 'Institucional',
+    category: 'Edifícios',
     location: 'Porto Alegre, RS',
     year: '2021',
     status: 'Construído',
@@ -259,6 +279,7 @@ export const PROJECTS: readonly ProjectData[] = [
     slug: 'dell-anno',
     name: 'Dell Anno',
     typology: 'Comercial',
+    category: 'Interiores',
     location: 'Porto Alegre, RS',
     year: '2017',
     status: 'Construído',
@@ -283,6 +304,7 @@ export const PROJECTS: readonly ProjectData[] = [
     slug: 'edificio-el-cielo',
     name: 'Edifício El Cielo',
     typology: 'Residencial Multifamiliar',
+    category: 'Edifícios',
     location: 'Porto Alegre, RS',
     year: '2020',
     status: 'Construído',
@@ -313,6 +335,7 @@ export const PROJECTS: readonly ProjectData[] = [
     slug: 'edificio-le-monde',
     name: 'Edifício Le Monde',
     typology: 'Residencial Multifamiliar',
+    category: 'Edifícios',
     location: 'Porto Alegre, RS',
     year: '2019',
     status: 'Construído',
@@ -338,6 +361,7 @@ export const PROJECTS: readonly ProjectData[] = [
     slug: 'edificio-unikue-marechal',
     name: 'Edifício Unikue Marechal',
     typology: 'Residencial Multifamiliar',
+    category: 'Edifícios',
     location: 'Porto Alegre, RS',
     year: '2019',
     status: 'Construído',
@@ -360,6 +384,7 @@ export const PROJECTS: readonly ProjectData[] = [
     slug: 'edificio-vital',
     name: 'Edifício Vital',
     typology: 'Residencial Multifamiliar',
+    category: 'Edifícios',
     location: 'Porto Alegre, RS',
     year: '2021',
     status: 'Construído',
@@ -384,6 +409,7 @@ export const PROJECTS: readonly ProjectData[] = [
     slug: 'fabrilo-rosa-e-trovao-advogados',
     name: 'Fabrilo Rosa e Trovão Advogados',
     typology: 'Corporativo',
+    category: 'Interiores',
     location: 'Porto Alegre, RS',
     year: '2019',
     status: 'Construído',
@@ -407,6 +433,7 @@ export const PROJECTS: readonly ProjectData[] = [
     slug: 'grupo-gtfoods',
     name: 'Grupo GTFoods',
     typology: 'Corporativo',
+    category: 'Interiores',
     location: 'Porto Alegre, RS',
     year: '2017',
     status: 'Construído',
@@ -423,6 +450,7 @@ export const PROJECTS: readonly ProjectData[] = [
     slug: 'jardins-de-monet-centro-esportes',
     name: 'Jardins de Monet — Centro de Esportes',
     typology: 'Institucional',
+    category: 'Edifícios',
     location: 'Porto Alegre, RS',
     year: '2019',
     status: 'Construído',
@@ -452,6 +480,7 @@ export const PROJECTS: readonly ProjectData[] = [
     slug: 'jardins-de-monet-salao-de-festas',
     name: 'Jardins de Monet — Salão de Festas',
     typology: 'Institucional',
+    category: 'Interiores',
     location: 'Porto Alegre, RS',
     year: '2017',
     status: 'Construído',
@@ -471,6 +500,7 @@ export const PROJECTS: readonly ProjectData[] = [
     slug: 'taj-condominio-resort',
     name: 'TAJ Condomínio Resort',
     typology: 'Residencial Multifamiliar',
+    category: 'Edifícios',
     location: 'Porto Alegre, RS',
     year: '2024',
     status: 'Em obra',
@@ -497,6 +527,10 @@ export function getProjectBySlug(slug: string): ProjectData | undefined {
 
 export function getFeaturedProjects(): readonly ProjectData[] {
   return PROJECTS.filter((p) => p.featured);
+}
+
+export function getProjectsByCategory(category: ProjectCategory): readonly ProjectData[] {
+  return PROJECTS.filter((p) => p.category === category);
 }
 
 export function getProjectImagePath(slug: string, filename: string): string {

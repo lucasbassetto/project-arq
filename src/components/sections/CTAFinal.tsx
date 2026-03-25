@@ -23,7 +23,7 @@ export default function CTAFinal() {
       <div className="max-w-[1280px] mx-auto px-6 md:px-12 xl:px-20 text-center">
         <AnimatedText>
           <h2
-            className="text-[32px] lg:text-[64px] font-[300] leading-[1.15] tracking-[-0.01em] text-[var(--color-bg-dark-text)] max-w-[900px] mx-auto"
+            className="text-[32px] lg:text-[64px] font-[300] leading-[1.15] tracking-[-0.01em] text-[var(--color-bg-dark-text)] max-w-[900px] mx-auto text-wrap-balance"
             style={{ fontFamily: 'var(--font-heading), Georgia, serif' }}
           >
             Pronto para uma arquitetura que responde ao que voce e?
@@ -46,7 +46,7 @@ export default function CTAFinal() {
 
         {/* CTA button */}
         <AnimatedText delay={0.3} className="mt-12">
-          <Button variant="ghost-light" href="#contato">
+          <Button variant="ghost-light" href="https://wa.me/5500000000000">
             Converse com a LAR
           </Button>
         </AnimatedText>

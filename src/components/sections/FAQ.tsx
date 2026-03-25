@@ -57,22 +57,28 @@ function FAQAccordionItem({
   item,
   isOpen,
   onToggle,
+  index,
 }: {
   item: FAQItem;
   isOpen: boolean;
   onToggle: () => void;
+  index: number;
 }) {
   const shouldReduceMotion = useReducedMotion();
+  const panelId = `faq-panel-${index}`;
+  const buttonId = `faq-button-${index}`;
 
   return (
     <div className="border-t border-[var(--color-border)]">
       <button
         type="button"
+        id={buttonId}
         className="w-full flex items-center justify-between py-6 text-left cursor-pointer group"
         onClick={onToggle}
         aria-expanded={isOpen}
+        aria-controls={panelId}
       >
-        <span className="text-[16px] lg:text-[18px] font-[400] text-[var(--color-ink)] pr-4">
+        <span className="text-[16px] lg:text-[18px] font-[400] text-[var(--color-ink)] pr-4 text-pretty">
           {item.question}
         </span>
         {/* Toggle icon: + / - */}
@@ -100,6 +106,9 @@ function FAQAccordionItem({
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
+            id={panelId}
+            role="region"
+            aria-labelledby={buttonId}
             initial={
               shouldReduceMotion
                 ? { opacity: 0 }
@@ -159,6 +168,7 @@ export default function FAQ() {
               item={item}
               isOpen={openIndex === index}
               onToggle={() => handleToggle(index)}
+              index={index}
             />
           ))}
         </div>

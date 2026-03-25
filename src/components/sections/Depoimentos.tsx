@@ -12,17 +12,17 @@ interface Testimonial {
 const TESTIMONIALS: readonly Testimonial[] = [
   {
     quote:
-      'A LAR nao projetou uma casa. Projetou um espaco que finalmente parece meu. O processo foi diferente de tudo que eu havia vivido — eles escutaram antes de desenhar qualquer coisa.',
+      '\u201CA LAR nao projetou uma casa. Projetou um espaco que finalmente parece meu. O processo foi diferente de tudo que eu havia vivido \u2014 eles escutaram antes de desenhar qualquer coisa.\u201D',
     attribution: 'Ana Luiza M., colecionadora de arte, Sao Paulo',
   },
   {
     quote:
-      'O que me surpreendeu foi a profundidade da investigacao. Eles entenderam o contexto do terreno melhor do que eu. O projeto resultante so poderia existir ali.',
+      '\u201CO que me surpreendeu foi a profundidade da investigacao. Eles entenderam o contexto do terreno melhor do que eu. O projeto resultante so poderia existir ali.\u201D',
     attribution: 'Rodrigo F., empresario, projeto residencial',
   },
   {
     quote:
-      'Eu queria um escritorio que comunicasse o que a nossa empresa acredita, nao apenas que tivesse um visual bonito. A LAR entendeu exatamente isso. Cada detalhe tem um porque.',
+      '\u201CEu queria um escritorio que comunicasse o que a nossa empresa acredita, nao apenas que tivesse um visual bonito. A LAR entendeu exatamente isso. Cada detalhe tem um porque.\u201D',
     attribution: 'Fernanda C., fundadora de empresa criativa, projeto comercial',
   },
 ] as const;

@@ -39,15 +39,16 @@ export default function ProjetoHero({ name, typology, slug, heroImage }: Props) 
           background:
             'linear-gradient(to top, rgba(28,28,28,0.75) 0%, rgba(28,28,28,0.2) 50%, transparent 100%)',
         }}
+        aria-hidden="true"
       />
 
       {/* Content */}
       <div className="relative h-full flex items-end">
         <div className="max-w-[1280px] w-full mx-auto px-6 md:px-12 xl:px-20 pb-16 lg:pb-20">
           <motion.span
-            className="block text-[11px] lg:text-[12px] font-[500] uppercase tracking-[0.12em] text-[var(--color-bg-dark-text)] opacity-70"
+            className="block text-[11px] lg:text-[12px] font-[500] uppercase tracking-[0.12em] text-[var(--color-bg-dark-text)]/70"
             initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 16 }}
-            animate={shouldReduceMotion ? { opacity: 0.7 } : { opacity: 0.7, y: 0 }}
+            animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
             {typology}

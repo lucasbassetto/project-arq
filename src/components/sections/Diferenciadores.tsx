@@ -38,6 +38,7 @@ const DIFFERENTIATORS: readonly Differentiator[] = [
 export default function Diferenciadores() {
   return (
     <section
+      id="diferenciadores"
       className="bg-[var(--color-bg)] py-[80px] lg:py-[120px]"
       aria-label="Diferenciadores"
     >
@@ -46,7 +47,7 @@ export default function Diferenciadores() {
         <AnimatedText>
           <SectionLabel>Diferenciadores</SectionLabel>
           <h2
-            className="text-[40px] lg:text-[64px] font-[300] leading-[1.15] tracking-[-0.01em] text-[var(--color-ink)] max-w-[900px]"
+            className="text-[40px] lg:text-[64px] font-[300] leading-[1.15] tracking-[-0.01em] text-[var(--color-ink)] max-w-[900px] text-wrap-balance"
             style={{ fontFamily: 'var(--font-heading), Georgia, serif' }}
           >
             O que nos separa
@@ -80,7 +81,7 @@ export default function Diferenciadores() {
                 {/* Content */}
                 <div className="lg:w-[80%]">
                   <h3
-                    className="text-[22px] lg:text-[32px] font-[400] leading-[1.25] text-[var(--color-ink)]"
+                    className="text-[22px] lg:text-[32px] font-[400] leading-[1.25] text-[var(--color-ink)] text-wrap-balance"
                     style={{
                       fontFamily: 'var(--font-heading), Georgia, serif',
                     }}

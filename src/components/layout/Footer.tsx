@@ -3,7 +3,7 @@ import Image from 'next/image';
 const NAV_LINKS = [
   { label: 'Projetos', href: '/#projetos' },
   { label: 'Processo', href: '/#processo' },
-  { label: 'Sobre', href: '/#manifesto' },
+  { label: 'Sobre', href: '/#diferenciadores' },
   { label: 'Contato', href: '/#contato' },
 ] as const;
 
@@ -34,6 +34,7 @@ export default function Footer() {
               width={80}
               height={28}
               className="h-7 w-auto"
+              loading="lazy"
             />
           </a>
 
@@ -117,7 +118,7 @@ export default function Footer() {
 
         {/* Row 3: Copyright + Privacy */}
         <div className="mt-8 flex flex-col lg:flex-row items-center justify-between gap-2 text-[13px] lg:text-[14px] font-[300] text-[var(--color-ink-muted)]">
-          <span>&copy; {currentYear} LAR Arquitetura. Todos os direitos reservados.</span>
+          <span suppressHydrationWarning>&copy; {currentYear} LAR Arquitetura. Todos os direitos reservados.</span>
           <a
             href="#"
             className="transition-colors duration-[250ms] hover:text-[var(--color-accent)]"

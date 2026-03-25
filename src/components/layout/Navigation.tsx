@@ -9,7 +9,7 @@ import { EASE_UI, EASE_REVEAL } from '@/lib/motion';
 const NAV_LINKS = [
   { label: 'Projetos', href: '/#projetos' },
   { label: 'Processo', href: '/#processo' },
-  { label: 'Sobre', href: '/#manifesto' },
+  { label: 'Sobre', href: '/#diferenciadores' },
   { label: 'Contato', href: '/#contato' },
 ] as const;
 
@@ -72,7 +72,7 @@ export default function Navigation() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full h-16 z-50 transition-all duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        className={`fixed top-0 left-0 w-full h-16 z-50 transition-[background-color,backdrop-filter] duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${
           isScrolled
             ? 'bg-[rgba(248,248,248,0.92)] backdrop-blur-[8px]'
             : 'bg-transparent'
@@ -150,6 +150,9 @@ export default function Navigation() {
             role="dialog"
             aria-modal="true"
             aria-label="Menu de navegacao"
+            onKeyDown={(e) => {
+              if (e.key === 'Escape') handleCloseMenu();
+            }}
           >
             <nav className="flex flex-col items-center gap-8">
               {NAV_LINKS.map((link, i) => (

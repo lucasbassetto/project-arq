@@ -21,7 +21,7 @@ export default function HomePage() {
   return (
     <SplashScreen>
       <Navigation />
-      <main>
+      <main id="main-content">
         <Hero />
 
         <Reconhecimento />

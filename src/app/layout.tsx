@@ -49,7 +49,16 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${playfair.variable} ${inter.variable}`}
     >
+      <head>
+        <meta name="theme-color" content="#F8F8F8" />
+      </head>
       <body className="min-h-screen bg-[var(--color-bg)] text-[var(--color-ink)] antialiased">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:bg-[var(--color-bg)] focus:px-4 focus:py-2 focus:text-[var(--color-ink)]"
+        >
+          Pular para o conteudo
+        </a>
         {children}
       </body>
     </html>
