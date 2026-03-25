@@ -6,10 +6,10 @@ import Hero from '@/components/sections/Hero';
 import Reconhecimento from '@/components/sections/Reconhecimento';
 import Projetos from '@/components/sections/Projetos';
 import Diferenciadores from '@/components/sections/Diferenciadores';
-import Processo from '@/components/sections/Processo';
 import Depoimentos from '@/components/sections/Depoimentos';
 import ParaQuem from '@/components/sections/ParaQuem';
 import CTAFinal from '@/components/sections/CTAFinal';
+import Equipe from '@/components/sections/Equipe';
 import FAQ from '@/components/sections/FAQ';
 
 /**
@@ -27,10 +27,10 @@ export default function HomePage() {
         <Reconhecimento />
         <Projetos />
         <Diferenciadores />
-        <Processo />
         <Depoimentos />
         <ParaQuem />
         <CTAFinal />
+        <Equipe />
         <FAQ />
       </main>
       <Footer />

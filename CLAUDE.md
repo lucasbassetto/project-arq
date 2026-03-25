@@ -4,115 +4,89 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Site institucional da **LAR Arquitetura**, escritório de arquitetura autoral e contextual. O projeto segue o pipeline de desenvolvimento do workflow em `C:\Users\LUCAS\.claude\workflow.md`.
+Site institucional da **LAR Arquitetura**, escritório de arquitetura autoral e contextual.
 
-## Pipeline Status
+## Commands
 
-| Fase | Ferramenta | Status | Output |
-|------|-----------|--------|--------|
-| 1. Copy | `/landing-page-copy-optimizer` | ✅ Concluída | `copy.md` |
-| 2. Visual Research | `design-researcher` (agent) | ✅ Concluída | `visual-references.md` |
-| 2.5. Scan Técnico | `scan-site.js` | ✅ Concluída | `references/ospa/` |
-| 3. Design Specs | `/frontend-design` | ✅ Concluída | `design-specs.md` |
-| 4. Implementação | `frontend-architect` (agent) | ✅ Concluída | `src/` |
-| 5. QA | `/review-frontend` + `/web-design-guidelines` + `/simplify` | ⬜ Pendente | — |
+```bash
+npm run dev      # dev server (localhost:3000)
+npm run build    # production build — run before any deploy
+npm run lint     # ESLint
+npm run start    # serve production build
+```
 
-## Brand Positioning
-
-**Categoria:** Arquitetura autoral e contextual
-
-**Positioning Statement:** "A LAR é um escritório de arquitetura autoral e contextual que transforma cada projeto em uma narrativa espacial única — concebida com rigor intelectual, sensibilidade estética e profundo respeito ao contexto — para pessoas que desejam habitar o mundo com intenção."
-
-**Diferenciadores:**
-1. Processo investigativo autoral — cada projeto nasce como hipótese arquitetônica, sem fórmula
-2. Contextualidade radical — a obra responde ao lugar, à luz, à proporção e ao contexto urbano
-3. Densidade intelectual — nenhuma decisão estética sem pensamento por trás
-4. Narrativa espacial — espaços que comunicam identidade
-5. Rigor sem repetição
-
-**Cliente-alvo:** Pessoa com repertório cultural e sensibilidade estética desenvolvida. Vê arquitetura como linguagem e cultura. Transita entre arte, cinema, literatura. Busca um espaço que seja extensão de si.
-
-**Metodologia (5 etapas):** Escuta → Investigação → Conceito → Projeto → Obra
-
-## Key Content Files
-
-- **`copy.md`** — Copy aprovada para todas as seções do site. Fonte autoritativa para conteúdo textual. Não modificar sem revisão do posicionamento.
-- **`visual-references.md`** — Referências visuais analisadas e direção visual recomendada para o projeto.
-- **`Posicionamento.pdf`** — Documento original de briefing/posicionamento da LAR Arquitetura.
+No test suite configured. Validate changes with `npm run build` to catch TypeScript and import errors.
 
 ## Tech Stack
 
-- **Framework:** Next.js 14+ (App Router)
-- **Styling:** Tailwind CSS v3 (custom tokens via `tailwind.config.ts`)
-- **Animations:** Framer Motion — sempre com `useReducedMotion()` + fallback
-- **Language:** TypeScript — sem `any`
-- **Images:** `next/image` com `priority` no Hero, `loading="lazy"` demais
+- **Next.js 16** — App Router, server components by default; add `'use client'` only for interactivity
+- **Tailwind CSS v4** — tokens defined via `@theme inline` in `src/app/globals.css` (no `tailwind.config.ts`)
+- **Framer Motion 12** — all animations must use `useReducedMotion()` with a fallback
+- **TypeScript** — no `any`; all data shapes typed in `src/data/projects.ts`
+- **React 19**
 
-> O projeto Next.js ainda não foi inicializado (`src/` não existe). Iniciar com `npx create-next-app@latest` na Fase 4.
+## Architecture
 
-## Design System (from design-specs.md)
+### Routing
+- `/` — `src/app/page.tsx` assembles all homepage sections in order
+- `/projetos` — `src/app/projetos/page.tsx` full project grid
+- `/projetos/[slug]` — `src/app/projetos/[slug]/page.tsx` individual project detail
 
-### Tokens de Cor (CSS custom properties)
+### Data Layer
+`src/data/projects.ts` is the single source of truth for all project data. It exports:
+- `PROJECTS` — full array of all `ProjectData` objects
+- `ProjectCategory` type — `'Casas' | 'Comércios' | 'Interiores' | 'Edifícios'`
+- `PROJECT_CATEGORIES` — ordered tuple of categories
+- `getFeaturedProjects()` — curated subset shown on the homepage
+- `getProjectImagePath(slug, filename)` — resolves `/images/projects/{slug}/{filename}`
+
+Project images live in `public/images/projects/{slug}/`.
+
+### Component Structure
 ```
---color-bg: #F8F8F8          /* fundo padrão */
---color-bg-warm: #EDE7D6     /* fundo alternado (Projetos, Processo) */
---color-bg-dark: #1C1C1C     /* inversões: Manifesto, Depoimentos, CTA */
---color-ink: #1C1C1C
---color-ink-secondary: #5E5E5E
---color-ink-muted: #A4A4A4
---color-accent: #A18461      /* APENAS micro-interações: hover, focus, nav ativo */
---color-border: #D8CBB8
-```
-
-**Regra crítica:** `--color-accent` nunca como fundo ou cor dominante — apenas hover/focus/active.
-
-### Tipografia
-- **Display/H1/H2/citações:** Editorial New (Pangram Pangram) — pesos 300, 400, 400 italic
-- **Body/UI/labels:** Neue Haas Grotesk — pesos 300, 400, 500
-- **Labels:** sempre uppercase, `letter-spacing: 0.12em`
-- **border-radius: 0** em todos os elementos — linguagem arquitetônica
-
-### Motion (Framer Motion)
-```ts
-// Scroll reveal padrão
-initial: { opacity: 0, y: 24 }
-animate: { opacity: 1, y: 0 }
-transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
-viewport: { once: true, amount: 0.2 }
-
-// Clip-path para imagens de projetos
-initial: { clipPath: 'inset(100% 0 0 0)' }
-animate: { clipPath: 'inset(0% 0 0 0)' }
-transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] }
-
-// Ken Burns no Hero
-animate: { scale: [1.04, 1.0] }
-transition: { duration: 2, ease: 'easeOut' }
+src/components/
+  layout/     Navigation, Footer
+  sections/   One file per page section (Hero, Projetos, Diferenciadores, etc.)
+  ui/         Reusable primitives (Button, AnimatedText, SectionLabel, SplashScreen, ProjectGridCard)
 ```
 
-### Layout
-- Container: `max-w-[1280px] mx-auto px-6`
-- Espaçamento entre seções: `py-[120px]` mobile → `py-[160px]` desktop
-- Scroll nativo — sem scroll hijacking, sem snap obrigatório
+`AnimatedText` is a scroll-reveal wrapper (Framer Motion `whileInView`). Use it to wrap headings and paragraphs in section components. It accepts `delay` and `direction` props.
 
-## Seções do Site (ordem)
+### Styling
+All design tokens are CSS custom properties defined in `globals.css` under `@theme inline`:
+- Colors: `--color-bg`, `--color-bg-warm`, `--color-bg-dark`, `--color-ink`, `--color-ink-secondary`, `--color-ink-muted`, `--color-accent`, `--color-border`
+- Fonts: `--font-heading` (Playfair Display → replace with Editorial New), `--font-body` (Inter → replace with Neue Haas Grotesk)
 
-1. Hero — full-bleed image, Ken Burns, título + CTA ghost
-2. Manifesto — fundo dark (#1C1C1C), texto editorial grande
-3. Reconhecimento — logotipos de imprensa/prêmios
-4. Projetos — grid 1→2 col, imagens com clip-path reveal
-5. Diferenciadores — 5 itens, layout alternado texto/imagem
-6. Processo — 5 etapas (Escuta → Investigação → Conceito → Projeto → Obra)
-7. Depoimentos — fundo dark, citações em Editorial New italic
-8. Para Quem — perfil do cliente ideal
-9. CTA Final — fundo dark, call-to-action principal
-10. FAQ — accordion, sem ícones decorativos
-11. Footer — minimal
+**Critical:** `--color-accent` (#A18461) is only for hover/focus/active micro-interactions — never as a background or dominant color.
+
+`border-radius: 0` is applied globally in `globals.css`. Never add rounded corners.
+
+### Motion constants
+`src/lib/motion.ts` exports shared easing curves (`EASE_REVEAL`, `EASE_UI`), stagger delay, and preset animation objects (`scrollReveal`, `clipPathReveal`, `kenBurns`).
+
+## Homepage Section Order
+
+`src/app/page.tsx` renders sections in this order:
+1. Hero
+2. Reconhecimento (stats strip — dark bg)
+3. Projetos (filtered grid with sidebar — warm bg)
+4. Diferenciadores (S-curve alternating layout)
+5. Depoimentos (carousel — dark bg)
+6. ParaQuem
+7. CTAFinal (dark bg)
+8. FAQ (accordion)
+
+## Key Content Files
+
+- `copy.md` — approved copy for all sections; authoritative text source
+- `visual-references.md` — visual direction and reference sites
+- `design-specs.md` — full design system specification
+- `Posicionamento.pdf` — original client briefing
 
 ## Conventions
 
-- PascalCase componentes, camelCase funções, kebab-case arquivos
-- Componentes < 150 linhas, responsabilidade única
-- Mobile-first, breakpoints: `sm:640px md:768px lg:1024px xl:1280px`
-- Todo conteúdo inventado marcado com `[SUGESTÃO]`
-- Sem ícones decorativos — tipografia-only para ornamentos
+- Mobile-first; breakpoints `sm:640 md:768 lg:1024 xl:1280`
+- Placeholder/invented content marked with `[SUGESTÃO]`
+- No decorative icons — typography-only ornaments
+- Container: `max-w-[1280px] mx-auto px-6 md:px-12 xl:px-20`
+- Section padding: `py-[80px] lg:py-[120px]` (light sections), `py-[60px] lg:py-[100px]` (dark/compact sections)

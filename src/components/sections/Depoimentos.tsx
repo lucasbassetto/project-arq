@@ -1,6 +1,7 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { EASE_REVEAL } from '@/lib/motion';
 
 interface Testimonial {
@@ -27,85 +28,113 @@ const TESTIMONIALS: readonly Testimonial[] = [
   },
 ] as const;
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.2,
-    },
-  },
-};
-
-const quoteVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { duration: 0.6, ease: EASE_REVEAL },
-  },
-};
-
 /**
- * Depoimentos section — dark background, stacked testimonials.
- * Editorial New italic quotes, no photos, no stars.
+ * Depoimentos section — dark background, centered carousel.
+ * One testimonial visible at a time, fade transition between slides.
  */
 export default function Depoimentos() {
+  const [active, setActive] = useState(0);
   const shouldReduceMotion = useReducedMotion();
 
-  const reducedQuoteVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { duration: 0.15 },
-    },
-  };
+  function prev() {
+    setActive((i) => (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
+  }
+
+  function next() {
+    setActive((i) => (i + 1) % TESTIMONIALS.length);
+  }
+
+  const testimonial = TESTIMONIALS[active];
 
   return (
     <section
-      className="bg-[var(--color-bg-dark)] py-[60px] md:py-[80px] lg:py-[120px]"
+      className="bg-[var(--color-bg-dark)] py-[60px] md:py-[80px] lg:py-[100px]"
       aria-label="Depoimentos de clientes"
+      aria-roledescription="carrossel"
     >
-      <div className="max-w-[1280px] mx-auto px-6 md:px-12 xl:px-20">
-        <motion.div
-          className="flex flex-col gap-20 max-w-[720px] mx-auto"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-        >
-          {TESTIMONIALS.map((testimonial) => (
+      <div className="max-w-[860px] mx-auto px-6 md:px-12 xl:px-20">
+
+        {/* Carousel — fixed min-height prevents layout shift between slides */}
+        <div className="relative min-h-[280px] sm:min-h-[260px] lg:min-h-[300px] flex items-center justify-center">
+          <AnimatePresence mode="wait">
             <motion.blockquote
-              key={testimonial.attribution}
+              key={active}
               className="text-center"
-              variants={
-                shouldReduceMotion ? reducedQuoteVariants : quoteVariants
-              }
+              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
+              transition={{ duration: shouldReduceMotion ? 0.15 : 0.5, ease: EASE_REVEAL }}
+              aria-live="polite"
             >
               {/* Decorative opening quote */}
               <span
-                className="block text-[80px] leading-[1] text-[rgba(248,248,248,0.2)] mb-[-32px]"
-                style={{
-                  fontFamily: 'var(--font-heading), Georgia, serif',
-                }}
+                className="block text-[72px] leading-[1] text-[rgba(248,248,248,0.15)] mb-[-28px]"
+                style={{ fontFamily: 'var(--font-heading), Georgia, serif' }}
                 aria-hidden="true"
               >
                 &ldquo;
               </span>
               {/* Quote text */}
               <p
-                className="text-[20px] lg:text-[28px] font-[400] italic leading-[1.6] text-[var(--color-bg-dark-text)]"
-                style={{
-                  fontFamily: 'var(--font-heading), Georgia, serif',
-                }}
+                className="text-[20px] lg:text-[26px] font-[400] italic leading-[1.65] text-[var(--color-bg-dark-text)]"
+                style={{ fontFamily: 'var(--font-heading), Georgia, serif' }}
               >
                 {testimonial.quote}
               </p>
               {/* Attribution */}
-              <footer className="mt-6 text-[13px] lg:text-[14px] font-[300] text-[rgba(248,248,248,0.6)]">
+              <footer className="mt-6 text-[13px] font-[300] text-[rgba(248,248,248,0.5)]">
                 — {testimonial.attribution}
               </footer>
             </motion.blockquote>
-          ))}
-        </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Controls */}
+        <div className="mt-10 flex items-center justify-center gap-8">
+          {/* Prev */}
+          <button
+            type="button"
+            onClick={prev}
+            aria-label="Depoimento anterior"
+            className="text-[rgba(248,248,248,0.4)] transition-colors duration-[250ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:text-[rgba(248,248,248,0.9)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)]"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+
+          {/* Dots */}
+          <div className="flex items-center gap-3" role="tablist" aria-label="Selecionar depoimento">
+            {TESTIMONIALS.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                role="tab"
+                aria-selected={i === active}
+                aria-label={`Depoimento ${i + 1}`}
+                onClick={() => setActive(i)}
+                className={`block transition-[width,opacity] duration-[300ms] ease-[cubic-bezier(0.4,0,0.2,1)] h-px focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)] ${
+                  i === active
+                    ? 'w-8 bg-[rgba(248,248,248,0.8)]'
+                    : 'w-3 bg-[rgba(248,248,248,0.3)] hover:bg-[rgba(248,248,248,0.5)]'
+                }`}
+              />
+            ))}
+          </div>
+
+          {/* Next */}
+          <button
+            type="button"
+            onClick={next}
+            aria-label="Próximo depoimento"
+            className="text-[rgba(248,248,248,0.4)] transition-colors duration-[250ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:text-[rgba(248,248,248,0.9)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)]"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+        </div>
+
       </div>
     </section>
   );

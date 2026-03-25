@@ -2,130 +2,129 @@ import Image from 'next/image';
 
 const NAV_LINKS = [
   { label: 'Projetos', href: '/#projetos' },
-  { label: 'Processo', href: '/#processo' },
   { label: 'Sobre', href: '/#diferenciadores' },
+  { label: 'Equipe', href: '/#equipe' },
   { label: 'Contato', href: '/#contato' },
 ] as const;
 
+const SOCIAL_LINKS = [
+  { label: 'Instagram', href: '#' },
+  { label: 'LinkedIn', href: '#' },
+  { label: 'WhatsApp', href: '#' },
+] as const;
+
 /**
- * Minimal footer — navigation, social links, contact, copyright.
- * No mega-footer. Silent ending.
+ * Robust dark footer — logo, tagline, nav, contact, social, copyright.
  */
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer
-      className="bg-[var(--color-bg)] pt-[60px] pb-[40px]"
+      className="bg-[var(--color-bg-dark)] pt-[80px] pb-[48px]"
       role="contentinfo"
     >
       <div className="max-w-[1280px] mx-auto px-6 md:px-12 xl:px-20">
-        {/* Row 1: Logo - Nav - Social */}
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-0">
-          {/* Logo */}
-          <a
-            href="/"
-            className="block"
-            aria-label="LAR Arquitetura"
-          >
-            <Image
-              src="/images/logo-lar.png"
-              alt="LAR Arquitetura"
-              width={80}
-              height={28}
-              className="h-7 w-auto"
-              loading="lazy"
-            />
-          </a>
 
-          {/* Nav links */}
-          <nav
-            className="flex flex-wrap justify-center gap-8"
-            aria-label="Navegacao do rodape"
-          >
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-[12px] font-[500] uppercase tracking-[0.12em] text-[var(--color-ink)] transition-colors duration-[250ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:text-[var(--color-accent)]"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
+        {/* Top row: Logo + tagline | Nav */}
+        <div className="flex flex-col lg:flex-row lg:justify-between gap-16 lg:gap-0">
 
-          {/* Social icons */}
-          <div className="flex items-center gap-6">
-            {/* [SUGESTAO] Confirmar quais redes estao ativas */}
-            <a
-              href="#"
-              className="text-[var(--color-ink-secondary)] transition-colors duration-[250ms] hover:text-[var(--color-accent)]"
-              aria-label="Instagram da LAR Arquitetura"
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <rect x="2" y="2" width="20" height="20" rx="5" />
-                <circle cx="12" cy="12" r="5" />
-                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-              </svg>
+          {/* Left — Logo + tagline + description */}
+          <div className="lg:max-w-[380px]">
+            <a href="/" aria-label="LAR Arquitetura">
+              <Image
+                src="/images/logo-lar.png"
+                alt="LAR Arquitetura"
+                width={80}
+                height={28}
+                className="h-7 w-auto brightness-0 invert"
+                loading="lazy"
+              />
             </a>
-            <a
-              href="#"
-              className="text-[var(--color-ink-secondary)] transition-colors duration-[250ms] hover:text-[var(--color-accent)]"
-              aria-label="LinkedIn da LAR Arquitetura"
+            <p className="mt-8 text-[22px] lg:text-[28px] font-[300] leading-[1.35] text-[var(--color-bg-dark-text)]"
+              style={{ fontFamily: 'var(--font-heading), Georgia, serif' }}
             >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" />
-                <rect x="2" y="9" width="4" height="12" />
-                <circle cx="4" cy="4" r="2" />
-              </svg>
-            </a>
+              Arquitetura que responde<br />ao lugar e a quem habita.
+            </p>
+            <p className="mt-5 text-[14px] font-[300] leading-[1.7] text-[rgba(248,248,248,0.5)]">
+              Porto Alegre, RS — Brasil
+            </p>
+          </div>
+
+          {/* Right — Nav + Contact + Social */}
+          <div className="flex flex-col sm:flex-row gap-14 lg:gap-20">
+
+            {/* Navigation */}
+            <div>
+              <p className="text-[10px] font-[500] uppercase tracking-[0.14em] text-[rgba(248,248,248,0.35)] mb-5">
+                Navegação
+              </p>
+              <nav className="flex flex-col gap-3" aria-label="Navegação do rodapé">
+                {NAV_LINKS.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="text-[15px] font-[300] text-[rgba(248,248,248,0.7)] transition-colors duration-[250ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:text-[var(--color-bg-dark-text)]"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <p className="text-[10px] font-[500] uppercase tracking-[0.14em] text-[rgba(248,248,248,0.35)] mb-5">
+                Contato
+              </p>
+              <div className="flex flex-col gap-3">
+                <a
+                  href="mailto:contato@lararquitetura.com.br"
+                  className="text-[15px] font-[300] text-[rgba(248,248,248,0.7)] transition-colors duration-[250ms] hover:text-[var(--color-bg-dark-text)]"
+                >
+                  contato@lararquitetura.com.br
+                </a>
+                <a
+                  href="tel:+555100000000"
+                  className="text-[15px] font-[300] text-[rgba(248,248,248,0.7)] transition-colors duration-[250ms] hover:text-[var(--color-bg-dark-text)]"
+                >
+                  +55 (51) 0000-0000
+                </a>
+
+                {/* Social */}
+                <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3">
+                  {SOCIAL_LINKS.map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      className="text-[12px] font-[500] uppercase tracking-[0.1em] text-[rgba(248,248,248,0.4)] transition-colors duration-[250ms] hover:text-[var(--color-bg-dark-text)]"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
-        {/* Row 2: Contact info */}
-        <div className="mt-10 flex flex-col lg:flex-row items-center justify-center gap-2 lg:gap-6 text-[13px] lg:text-[14px] font-[300] text-[var(--color-ink-muted)]">
-          {/* [SUGESTAO] Substituir pelos dados reais de contato */}
-          <span>contato@lararquitetura.com.br</span>
-          <span className="hidden lg:inline" aria-hidden="true">
-            ·
-          </span>
-          <span>+55 (00) 0000-0000</span>
-          <span className="hidden lg:inline" aria-hidden="true">
-            ·
-          </span>
-          <span>Porto Alegre, RS</span>
-        </div>
+        {/* Divider */}
+        <div className="mt-16 h-px bg-[rgba(248,248,248,0.08)]" aria-hidden="true" />
 
-        {/* Row 3: Copyright + Privacy */}
-        <div className="mt-8 flex flex-col lg:flex-row items-center justify-between gap-2 text-[13px] lg:text-[14px] font-[300] text-[var(--color-ink-muted)]">
-          <span suppressHydrationWarning>&copy; {currentYear} LAR Arquitetura. Todos os direitos reservados.</span>
+        {/* Bottom row: Copyright + Privacy */}
+        <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[12px] font-[300] text-[rgba(248,248,248,0.3)]">
+          <span suppressHydrationWarning>
+            &copy; {currentYear} LAR Arquitetura. Todos os direitos reservados.
+          </span>
           <a
             href="#"
-            className="transition-colors duration-[250ms] hover:text-[var(--color-accent)]"
+            className="transition-colors duration-[250ms] hover:text-[rgba(248,248,248,0.7)]"
           >
-            Politica de Privacidade
+            Política de Privacidade
           </a>
         </div>
+
       </div>
     </footer>
   );
